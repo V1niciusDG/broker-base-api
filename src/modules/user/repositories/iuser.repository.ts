@@ -4,7 +4,7 @@ import { IUserDTO } from '../dto/user.dto';
 
 interface IUserRepository {
   create({ name, email, password, role }: ICreateUserDTO): Promise<IUserDTO>;
-  update({ id, name, email }: IUpdateUserDTO): Promise<void>;
+  update(email: string, updateData: { name: string }): Promise<void>;
   find(): Promise<IUserDTO[]>;
   delete(id: number): Promise<void>;
   findById(id: number): Promise<IUserDTO>;

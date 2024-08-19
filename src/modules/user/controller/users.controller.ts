@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
+  Query,
 } from '@nestjs/common';
 
 import { ICreateUserDTO } from '../dto/create-user.dto';
 import { FindUserService } from '../useCases/find-users.service';
 import { CreateUserService } from '../useCases/create-users.service';
 import { DeleteUserService } from '../useCases/delete-users.service';
+import { IUpdateUserDTO } from '../dto/update-user.dto';
+import { UpdateUserService } from '../useCases/update-users.service';
 
 @Controller('users')
 export class UsersController {
@@ -19,6 +23,7 @@ export class UsersController {
     private readonly createUserService: CreateUserService,
     private readonly findUsersService: FindUserService,
     private readonly deleteUsersService: DeleteUserService,
+    private readonly updateUsersService: UpdateUserService,
   ) {}
 
   @Post()
@@ -42,16 +47,19 @@ export class UsersController {
       message: 'User deleted',
     };
   }
+
+  @Put()
+  async update(@Query('email') email: string, @Body() body: { name: string }) {
+    await this.updateUsersService.execute(body.name, email);
+    return {
+      message: 'User name updated successfully',
+    };
+  }
 }
 
 //   @Get(':id')
 //   findOne(@Param('id') id: string) {
 //     return this.usersService.findOne(+id);
-//   }
-
-//   @Patch(':id')
-//   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-//     return this.usersService.update(+id, updateUserDto);
 //   }
 
 // }

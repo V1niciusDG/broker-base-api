@@ -40,11 +40,8 @@ class UserRepository implements IUserRepository {
     return await this.repository.findOne({ where: { email } });
   }
 
-  async update({ id, name, email }: IUpdateUserDTO): Promise<void> {
-    await this.repository.update(id, {
-      name,
-      email,
-    });
+  async update(email: string, updateData: { name: string }): Promise<void> {
+    await this.repository.update({ email }, updateData);
   }
 
   async find(): Promise<IUserDTO[]> {

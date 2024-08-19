@@ -6,6 +6,7 @@ import { UsersController } from './controller/users.controller';
 import { CreateUserService } from './useCases/create-users.service';
 import { FindUserService } from './useCases/find-users.service';
 import { DeleteUserService } from './useCases/delete-users.service';
+import { UpdateUserService } from './useCases/update-users.service';
 
 // @Module({
 //   controllers: [UsersController],
@@ -19,6 +20,7 @@ import { DeleteUserService } from './useCases/delete-users.service';
     CreateUserService,
     FindUserService,
     DeleteUserService,
+    UpdateUserService,
     {
       provide: 'UserRepository',
       useClass: UserRepository,
