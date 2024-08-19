@@ -8,5 +8,6 @@ interface IUserRepository {
   find(): Promise<IUserDTO[]>;
   delete(id: number): Promise<void>;
   findById(id: number): Promise<IUserDTO>;
+  findByEmail(email: string): Promise<IUserDTO>;
 }
 export { IUserRepository };

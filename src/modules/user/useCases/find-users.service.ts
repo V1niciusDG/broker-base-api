@@ -1,21 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IUserRepository } from './repositories/iuser.repository';
-import { ICreateUserDTO } from './dto/create-user.dto';
-import { IUserDTO } from './dto/user.dto';
+import { IUserRepository } from '../repositories/iuser.repository';
+import { IUserDTO } from '../dto/user.dto';
 
 @Injectable()
-export class UsersService {
+export class FindUserService {
   constructor(
     @Inject('UserRepository')
     private userRepository: IUserRepository,
   ) {}
-  async create({ name, email, password, role }: ICreateUserDTO): Promise<void> {
-    if (!password) {
-      throw new Error('PASSWORD_REQUIRED');
-    }
-
-    await this.userRepository.create({ name, email, password, role });
-  }
 
   async find(): Promise<IUserDTO[]> {
     return this.userRepository.find();

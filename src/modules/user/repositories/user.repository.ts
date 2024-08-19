@@ -14,8 +14,8 @@ class UserRepository implements IUserRepository {
   constructor() {
     this.repository = AppDataSource.getRepository(User);
   }
-  delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
 
   async create({
@@ -32,8 +32,12 @@ class UserRepository implements IUserRepository {
     });
   }
 
-  findById(id: number): Promise<IUserDTO> {
-    throw new Error('Method not implemented.');
+  async findById(id: number): Promise<IUserDTO> {
+    return await this.repository.findOne({ where: { id } });
+  }
+
+  async findByEmail(email: string): Promise<IUserDTO> {
+    return await this.repository.findOne({ where: { email } });
   }
 
   async update({ id, name, email }: IUpdateUserDTO): Promise<void> {
@@ -43,18 +47,9 @@ class UserRepository implements IUserRepository {
     });
   }
 
-  // async findById(id: number): Promise<IUserDTO> {
-  //   return await this.repository.findOne({ id });
-  // }
-
   async find(): Promise<IUserDTO[]> {
     return await this.repository.find();
   }
 }
-
-//   async delete(id: number): Promise<void> {
-//     await this.repository.delete(id);
-//   }
-// }
 
 export { UserRepository };
