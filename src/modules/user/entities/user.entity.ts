@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRoleEnum } from '../enum/user-role.enum';
 
-@Entity('user')
+@Entity('users')
 class User {
   @PrimaryGeneratedColumn()
   id: number;

@@ -3,7 +3,7 @@ import { IUpdateUserDTO } from '../dto/update-user.dto';
 import { IUserDTO } from '../dto/user.dto';
 
 interface IUserRepository {
-  create({ name, email, password, role }: ICreateUserDTO): Promise<IUserDTO>;
+  create(data: ICreateUserDTO): Promise<IUserDTO>;
   update(email: string, updateData: { name: string }): Promise<void>;
   find(): Promise<IUserDTO[]>;
   delete(id: number): Promise<void>;

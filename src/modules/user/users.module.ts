@@ -1,30 +1,23 @@
 import { Module } from '@nestjs/common';
-
 import { UserRepository } from './repositories/user.repository';
-
-import { UsersController } from './controller/users.controller';
 import { CreateUserService } from './useCases/create-users.service';
-import { FindUserService } from './useCases/find-users.service';
+import { UsersController } from './controller/users.controller';
 import { DeleteUserService } from './useCases/delete-users.service';
 import { UpdateUserService } from './useCases/update-users.service';
-
-// @Module({
-//   controllers: [UsersController],
-//   providers: [UsersService],
-// })
-// export class UsersModule {}
+import { FindUserService } from './useCases/find-users.service';
 
 @Module({
   controllers: [UsersController],
   providers: [
     CreateUserService,
-    FindUserService,
     DeleteUserService,
     UpdateUserService,
+    FindUserService,
     {
       provide: 'UserRepository',
       useClass: UserRepository,
     },
   ],
+  exports: [CreateUserService, 'UserRepository'],
 })
 export class UsersModule {}
