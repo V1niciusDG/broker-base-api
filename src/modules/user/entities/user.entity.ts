@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRoleEnum } from '../enum/user-role.enum';
+import { Auth } from 'src/modules/auth/entities/auth.entity';
 
 @Entity('users')
 class User {
@@ -14,6 +15,9 @@ class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Auth, (auth) => auth.user)
+  authRecords: Auth[];
 
   @Column({
     type: 'enum',
