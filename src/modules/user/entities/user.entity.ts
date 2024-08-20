@@ -17,7 +17,7 @@ class User {
   password: string;
 
   @OneToMany(() => Auth, (auth) => auth.user)
-  authRecords: Auth[];
+  auths: Auth[];
 
   @Column({
     type: 'enum',

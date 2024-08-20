@@ -6,7 +6,7 @@ class Auth {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.authRecords)
+  @ManyToOne(() => User, (user) => user.auths, { onDelete: 'CASCADE' })
   user: User;
 
   @Column({
