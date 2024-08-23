@@ -18,13 +18,9 @@ export class StockController {
   constructor(private readonly createStockService: CreateStockService) {}
 
   @Post()
-  async execute(
-    @Body() data: ICreateStockDTO,
-    @Query('email') email: string,
-    @Query('password') password: string,
-  ) {
+  async execute(@Body() data: ICreateStockDTO, @Query('token') token: string) {
     try {
-      await this.createStockService.execute(data, email, password);
+      await this.createStockService.execute(data, token);
       return {
         message: 'Stock created successfully',
       };
