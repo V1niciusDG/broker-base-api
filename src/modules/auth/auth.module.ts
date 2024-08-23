@@ -28,5 +28,16 @@ import { AuthValidateService } from './useCases/auth-validate.service';
       useClass: UserRepository,
     },
   ],
+  exports: [
+    AuthService,
+    {
+      provide: 'AuthRepository',
+      useClass: AuthRepository,
+    },
+    {
+      provide: 'UserRepository',
+      useClass: UserRepository,
+    },
+  ],
 })
 export class AuthModule {}

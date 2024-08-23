@@ -18,7 +18,8 @@ class AuthRepository implements IAuthRepository {
 
   async findByToken(token: string): Promise<Auth | null> {
     return await this.repository.findOne({
-      where: { accessToken: token, isActive: true },
+      where: { accessToken: token },
+      relations: ['user'],
     });
   }
 }
