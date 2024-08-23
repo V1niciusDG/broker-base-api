@@ -1,10 +1,13 @@
-// src/modules/auth/auth.controller.ts
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../useCases/auth-token.service';
+import { AuthValidateService } from '../useCases/auth-validate.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly authValidateService: AuthValidateService,
+  ) {}
 
   @Post('login')
   async login(
@@ -15,7 +18,11 @@ export class AuthController {
       const token = await this.authService.generateToken(email, password);
       return { token };
     } catch (error) {
-      throw new UnauthorizedException('Invalid credentials');
+      if (error.response) {
+        throw new UnauthorizedException(error.response);
+      } else {
+        throw new UnauthorizedException('Invalid credentials');
+      }
     }
   }
 
@@ -23,7 +30,7 @@ export class AuthController {
   validateToken(@Body() body: { token: string }): any {
     const { token } = body;
     try {
-      return this.authService.validateToken(token);
+      return this.authValidateService.validateToken(token);
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }

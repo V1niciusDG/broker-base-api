@@ -1,9 +1,6 @@
-import { AuthTokenDTO } from '../dto/auth-token.dto';
-import { CreateAuthTokenDTO } from '../dto/create-auth-stock.dto';
+import { Auth } from '../entities/auth.entity';
 
-interface IAuthRepository {
-  create(data: CreateAuthTokenDTO): Promise<AuthTokenDTO>;
-  findByEmail(email: string): Promise<AuthTokenDTO | null>;
+export interface IAuthRepository {
+  create(auth: Auth): Promise<Auth>;
+  findByToken(token: string): Promise<Auth | null>;
 }
-
-export { IAuthRepository };

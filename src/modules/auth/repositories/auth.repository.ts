@@ -1,10 +1,8 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from 'src/database/data-source';
 import { Injectable } from '@nestjs/common';
-import { AuthTokenDTO } from '../dto/auth-token.dto';
-import { CreateAuthTokenDTO } from '../dto/create-auth-stock.dto';
-import { IAuthRepository } from './iauth.repository';
 import { Auth } from '../entities/auth.entity';
+import { IAuthRepository } from './iauth.repository';
 
 @Injectable()
 class AuthRepository implements IAuthRepository {
@@ -13,11 +11,15 @@ class AuthRepository implements IAuthRepository {
   constructor() {
     this.repository = AppDataSource.getRepository(Auth);
   }
-  create(data: CreateAuthTokenDTO): Promise<AuthTokenDTO> {
-    throw new Error('Method not implemented.');
+
+  async create(auth: Auth): Promise<Auth> {
+    return await this.repository.save(auth);
   }
-  findByEmail(email: string): Promise<AuthTokenDTO | null> {
-    throw new Error('Method not implemented.');
+
+  async findByToken(token: string): Promise<Auth | null> {
+    return await this.repository.findOne({
+      where: { accessToken: token, isActive: true },
+    });
   }
 }
 
