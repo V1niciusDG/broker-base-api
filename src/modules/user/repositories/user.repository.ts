@@ -4,8 +4,9 @@ import { ICreateUserDTO } from '../dto/create-user.dto';
 import { IUserDTO } from '../dto/user.dto';
 import { IUpdateUserDTO } from '../dto/update-user.dto';
 import { IUserRepository } from './iuser.repository';
-import { AppDataSource } from 'src/database/data-source';
+
 import { Injectable } from '@nestjs/common';
+import { AppDataSource } from 'src/database/data-source';
 
 @Injectable()
 class UserRepository implements IUserRepository {

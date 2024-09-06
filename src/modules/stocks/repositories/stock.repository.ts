@@ -47,6 +47,14 @@ class StockRepository implements IStockRepository {
   async findBySymbol(symbol: string): Promise<IStockDTO> {
     return await this.repository.findOne({ where: { symbol } });
   }
+
+  async findByUserId(user_id: number): Promise<IStockDTO[]> {
+    return await this.repository.query(`
+      SELECT t.* FROM tenants t 
+      INNER JOIN user_tenants ut 
+      ON t.id = ut.tenant_id 
+      WHERE ut.user_id = ${user_id}`);
+  }
 }
 
 export { StockRepository };

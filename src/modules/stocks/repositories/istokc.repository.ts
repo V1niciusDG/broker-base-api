@@ -9,6 +9,7 @@ interface IStockRepository {
   delete(id: number): Promise<void>;
   findById(id: number): Promise<IStockDTO>;
   findBySymbol(symbol: string): Promise<IStockDTO>;
+  findByUserId(user_id: number): Promise<IStockDTO>;
 }
 
 export { IStockRepository };
